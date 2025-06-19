@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Time Tracking and Invoicing SAAS for Freelancer
 
-## Getting Started
+## Project User Stories
 
-First, run the development server:
+### **Auth & Account**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[ ] 1. As a user, I want to sign up with email & password so that I can access my account.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[ ] 2. As a user, I want to log in with email & password.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[ ] 3. As a user, I want to reset my password if I forget it.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[ ] 4. As a user, I want to see my subscription status (Free Trial, Starter, Pro)
 
-## Learn More
+[ ] 5. As a user, I want to upgrade my plan via Stripe checkout.
 
-To learn more about Next.js, take a look at the following resources:
+### **Clients & Projects**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[ ] 1. As a user, I want to create clients with name & email so I can track work by client.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[ ] 2. As a user, I want to edit and delete clients.
 
-## Deploy on Vercel
+[ ] 3. As a user, I want to create projects under a client with hourly rate.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[ ] 4. As a user, I want to edit and delete projects.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Time Tracking**
+
+[ ] 1. As a user, I want to start/stop a timer on a project.
+
+[ ] 2. As a user, I want to manually add time entries.
+
+[ ] 3. As a user, I want to view a list of time entries.
+
+[ ] 4. As a user, I want to filter time entries by date range, project, client.
+
+### **Invoicing**
+
+[ ] 1. As a user, I want to create an invoice from selected time entries.
+
+[ ] 2. As a user, I want to add manual line items (expenses, flat fees).
+
+[ ] 3. As a user, I want to generate a PDF invoice.
+
+[ ] 4. As a user, I want to email an invoice to the client.
+
+[ ] 5. As a user, I want to mark invoices as Paid or Unpaid.
+
+[ ]6. As a user, I want to track which invoices are overdue.
+
+---
+
+### **Dashboard**
+
+[ ] 1. As a user, I want to see how many hours I’ve worked this week/month.
+
+[ ] 2. As a user, I want to see how much money I’ve earned.
+
+[ ] 3. As a user, I want to see unpaid invoices.
