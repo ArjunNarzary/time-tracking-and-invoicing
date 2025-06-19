@@ -4,7 +4,7 @@
 
 ### **Auth & Account**
 
-[] 1. As a user, I want to sign up with email & password so that I can access my account.
+[x] 1. As a user, I want to sign up with email & password so that I can access my account.
 
 [] 2. As a user, I want to log in with email & password.
 
