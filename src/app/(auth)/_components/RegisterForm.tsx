@@ -1,4 +1,4 @@
-import { loginUserSchema } from "@/schemas/user"
+import { registerUserSchema } from "@/schemas/user"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,16 +14,17 @@ import { Input } from "@/components/ui/input"
 import PasswordInput from "./PasswordInput"
 import { Button } from "@/components/ui/button"
 
-export default function LoginForm() {
-  const form = useForm<z.infer<typeof loginUserSchema>>({
-    resolver: zodResolver(loginUserSchema),
+export default function RegisterForm() {
+  const form = useForm<z.infer<typeof registerUserSchema>>({
+    resolver: zodResolver(registerUserSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   })
 
-  const onSubmit = (data: z.infer<typeof loginUserSchema>) => {
+  const onSubmit = (data: z.infer<typeof registerUserSchema>) => {
     console.log(data)
   }
 
@@ -34,6 +35,23 @@ export default function LoginForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-6"
         >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Name</FormLabel>
+                <FormControl>
+                  <Input
+                    className="py-5 text-black"
+                    placeholder="Full Name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -65,7 +83,7 @@ export default function LoginForm() {
             )}
           />
           <Button className="text-md h-10" type="submit">
-            Login
+            Sign Up
           </Button>
         </form>
       </Form>
