@@ -1,45 +1,18 @@
-"use client"
-
 import Link from "next/link"
 import LoginWithGoogle from "../_components/LoginWithGoogle"
 import { ROUTES } from "@/routes"
 import RegisterForm from "../_components/RegisterForm"
+import { redirect } from "next/navigation"
+import { auth } from "@/lib/auth/auth"
 
-export default function RegisterPage() {
-  // const router = useRouter()
-  // async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault()
+export default async function RegisterPage() {
+  const session = await auth()
 
-  //   try {
-  //     const formData = new FormData(event.currentTarget)
-  //     const email = formData.get("email")
-  //     const password = formData.get("password")
-
-  //     const response = await fetch("/api/register", {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email,
-  //         password,
-  //       }),
-  //     })
-
-  //     console.log("response -->", response)
-
-  //     if (response.status === 201) {
-  //       router.push("/")
-  //     } else {
-  //       console.log(response.status)
-  //     }
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
-  // }
-
+  if (session) {
+    redirect(ROUTES.dashboard)
+  }
   return (
-    <div className="flex h-screen w-screen flex-col items-center gap-4">
+    <div className="flex h-screen w-screen flex-col items-center gap-4 p-3 sm:p-0">
       <Link
         className="absolute left-1/2 top-4 z-10 -translate-x-1/2"
         href={ROUTES.home}
