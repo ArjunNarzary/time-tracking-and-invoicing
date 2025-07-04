@@ -1,3 +1,5 @@
+"use client"
+
 import { loginUserSchema } from "@/schemas/user"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -13,6 +15,8 @@ import {
 import { Input } from "@/components/ui/input"
 import PasswordInput from "./PasswordInput"
 import { Button } from "@/components/ui/button"
+import { credentialLogin } from "@/server/actions/auth"
+import { toast } from "sonner"
 
 export default function LoginForm() {
   const form = useForm<z.infer<typeof loginUserSchema>>({
@@ -23,8 +27,11 @@ export default function LoginForm() {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof loginUserSchema>) => {
-    console.log(data)
+  const onSubmit = async (values: z.infer<typeof loginUserSchema>) => {
+    const data = await credentialLogin(values)
+    if (data && data.error) {
+      toast.error(data.message)
+    }
   }
 
   return (
@@ -64,7 +71,11 @@ export default function LoginForm() {
               </FormItem>
             )}
           />
-          <Button className="text-md h-10" type="submit">
+          <Button
+            disabled={form.formState.isSubmitting}
+            className="text-md h-10"
+            type="submit"
+          >
             Login
           </Button>
         </form>

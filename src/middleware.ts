@@ -8,16 +8,12 @@ const { auth } = NextAuth(authConfig)
 export async function middleware(request: NextRequest) {
   const { nextUrl } = request
   const session = await auth()
-  console.log(session)
 
   const isAuthenticated = !!session?.user
-  console.log(isAuthenticated, nextUrl.pathname)
 
   const isPublicRoute =
     PUBLIC_ROUTES.find((route) => nextUrl.pathname.startsWith(route)) ||
     nextUrl.pathname === ROUTES.home
-
-  console.log("isPublicRoute", isPublicRoute)
 
   if (!isAuthenticated && !isPublicRoute) {
     return NextResponse.redirect(new URL(ROUTES.login, nextUrl))

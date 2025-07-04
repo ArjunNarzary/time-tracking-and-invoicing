@@ -1,3 +1,5 @@
+"use client"
+
 import { registerUserSchema } from "@/schemas/user"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -13,6 +15,10 @@ import {
 import { Input } from "@/components/ui/input"
 import PasswordInput from "./PasswordInput"
 import { Button } from "@/components/ui/button"
+import { createUser } from "@/server/actions/auth"
+import { toast } from "sonner"
+import { redirect } from "next/navigation"
+import { ROUTES } from "@/routes"
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof registerUserSchema>>({
@@ -24,8 +30,19 @@ export default function RegisterForm() {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof registerUserSchema>) => {
-    console.log(data)
+  const onSubmit = async (values: z.infer<typeof registerUserSchema>) => {
+    const data = await createUser(values)
+
+    if (data) {
+      if (data?.error) {
+        toast.error(data.message)
+      } else {
+        toast.success(data.message)
+        redirect(ROUTES.login)
+      }
+    } else {
+      toast.error("Something went wrong. Please try again")
+    }
   }
 
   return (
@@ -82,7 +99,11 @@ export default function RegisterForm() {
               </FormItem>
             )}
           />
-          <Button className="text-md h-10" type="submit">
+          <Button
+            disabled={form.formState.isSubmitting}
+            className="text-md h-10"
+            type="submit"
+          >
             Sign Up
           </Button>
         </form>

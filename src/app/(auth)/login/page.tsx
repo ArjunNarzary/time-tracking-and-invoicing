@@ -1,32 +1,17 @@
-"use client"
-
 import React from "react"
-// import { credentialLogin } from "@/server/actions/auth"
-// import { useRouter } from "next/navigation"
-// import { ROUTES } from "@/routes"
 import LoginForm from "../_components/LoginForm"
 import LoginWithGoogle from "../_components/LoginWithGoogle"
 import Link from "next/link"
 import { ROUTES } from "@/routes"
+import { auth } from "@/lib/auth/auth"
+import { redirect } from "next/navigation"
 
-const LoginPage = () => {
-  // const router = useRouter()
+export default async function LoginPage() {
+  const session = await auth()
 
-  // async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault()
-  //   try {
-  //     const formData = new FormData(event.currentTarget)
-  //     const response = await credentialLogin(formData)
-
-  //     if (!!response.error) {
-  //       // router.push("/")
-  //     } else {
-  //       router.push(ROUTES.dashboard)
-  //     }
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
-  // }
+  if (session) {
+    redirect(ROUTES.dashboard)
+  }
 
   return (
     <div className="flex h-screen w-screen flex-col items-center gap-4">
@@ -62,5 +47,3 @@ const LoginPage = () => {
     </div>
   )
 }
-
-export default LoginPage
