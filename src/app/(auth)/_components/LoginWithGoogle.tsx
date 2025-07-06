@@ -1,8 +1,36 @@
+"use client"
+
+import { signIn } from "next-auth/react"
+import { toast } from "sonner"
+import { ROUTES } from "@/routes"
+import { tryCatch } from "@/lib/utils"
+
 export default function LoginWithGoogle() {
+  const handleLogin = async () => {
+    const { data, error } = await tryCatch(
+      signIn("google", {
+        callbackUrl: ROUTES.dashboard,
+        redirect: false,
+      })
+    )
+
+    if (error) {
+      toast.error("Failed to login with Google")
+    }
+
+    if (data && data.url) {
+      // Redirect to the callback URL
+      window.location.href = data.url
+    } else {
+      toast.error("Failed to login with Google")
+    }
+  }
+
   return (
     <button
+      onClick={handleLogin}
       type="button"
-      className="group flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border px-4 text-sm transition-all border-border-subtle bg-white dark:bg-black text-content-emphasis hover:bg-bg-muted focus-visible:border-border-emphasis outline-none data-[state=open]:border-border-emphasis data-[state=open]:ring-4 data-[state=open]:ring-border-subtle"
+      className="group flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border px-4 text-sm transition-all border-border-subtle bg-white dark:bg-black text-content-emphasis hover:bg-bg-muted focus-visible:border-border-emphasis outline-none data-[state=open]:border-border-emphasis data-[state=open]:ring-4 data-[state=open]:ring-border-subtle cursor-pointer"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
