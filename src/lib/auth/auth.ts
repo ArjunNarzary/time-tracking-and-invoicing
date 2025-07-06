@@ -2,6 +2,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth"
 import prisma from "../prisma"
 import Credentials from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google"
 import { validatePassword } from "./password"
 import { getUserByEmailDb } from "@/server/db/users"
 import { User } from "@/generated/prisma"
@@ -17,6 +18,17 @@ export const {
   adapter: PrismaAdapter(prisma),
   ...authConfig,
   providers: [
+    GoogleProvider({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+    }),
     Credentials({
       credentials: {
         email: {},
@@ -59,4 +71,22 @@ export const {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.email = user.email
+        token.name = user.name
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string
+        session.user.email = token.email as string
+        session.user.name = token.name as string
+      }
+      return session
+    },
+  },
 })
