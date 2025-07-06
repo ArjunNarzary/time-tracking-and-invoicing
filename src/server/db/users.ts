@@ -1,7 +1,7 @@
 import { User } from "@/generated/prisma"
 import prisma from "@/lib/prisma"
 
-export async function getUserByEmail(
+export async function getUserByEmailDb(
   email: string,
   selects?: Record<string, boolean>
 ): Promise<User | null> {
@@ -15,7 +15,7 @@ export async function getUserByEmail(
   return user
 }
 
-export async function createUser(
+export async function createUserDb(
   data: Omit<User, "id" | "createdAt" | "updatedAt">
 ) {
   const user = await prisma.user.create({

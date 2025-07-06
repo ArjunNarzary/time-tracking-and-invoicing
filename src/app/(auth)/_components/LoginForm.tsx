@@ -17,6 +17,8 @@ import PasswordInput from "./PasswordInput"
 import { Button } from "@/components/ui/button"
 import { credentialLogin } from "@/server/actions/auth"
 import { toast } from "sonner"
+import { redirect } from "next/navigation"
+import { ROUTES } from "@/routes"
 
 export default function LoginForm() {
   const form = useForm<z.infer<typeof loginUserSchema>>({
@@ -31,7 +33,10 @@ export default function LoginForm() {
     const data = await credentialLogin(values)
     if (data && data.error) {
       toast.error(data.message)
+      return
     }
+
+    redirect(ROUTES.dashboard)
   }
 
   return (

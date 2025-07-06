@@ -15,10 +15,10 @@ import {
 import { Input } from "@/components/ui/input"
 import PasswordInput from "./PasswordInput"
 import { Button } from "@/components/ui/button"
-import { createUser } from "@/server/actions/auth"
 import { toast } from "sonner"
 import { redirect } from "next/navigation"
 import { ROUTES } from "@/routes"
+import { registerUser } from "@/server/actions/auth"
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof registerUserSchema>>({
@@ -31,7 +31,7 @@ export default function RegisterForm() {
   })
 
   const onSubmit = async (values: z.infer<typeof registerUserSchema>) => {
-    const data = await createUser(values)
+    const data = await registerUser(values)
 
     if (data) {
       if (data?.error) {
