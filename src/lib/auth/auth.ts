@@ -35,7 +35,7 @@ export const {
         password: {},
       },
       authorize: async (credentials) => {
-        if (credentials === null) return null
+        if (!credentials) return null
         const { email, password } = credentials
 
         if (!email || !password) return null

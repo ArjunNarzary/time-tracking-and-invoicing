@@ -21,7 +21,7 @@ export default async function LoginPage() {
       >
         <h1 className="text-2xl font-bold py-5">Time Tracking App</h1>
       </Link>
-      <div className="flex flex-col items-center justify-center gap-4 w-full max-w-md h-screen">
+      <div className="flex flex-col items-center justify-center gap-4 w-full max-w-sm h-screen">
         <h2 className="text-2xl font-bold py-4">Login to your account</h2>
         <div className="flex flex-col gap-3 w-full">
           <LoginForm />
