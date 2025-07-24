@@ -1,9 +1,13 @@
 export const ROUTES = {
   login: "/login",
   register: "/register",
+  googleCallback: "/api/auth/callback/google",
   home: "/",
   dashboard: "/dashboard",
-  googleCallback: "/api/auth/callback/google",
+  clients: "/clients",
+  projects: "/projects",
+  timeTracking: "/time-tracking",
+  invoices: "/invoices",
 }
 
 export const PUBLIC_ROUTES = [

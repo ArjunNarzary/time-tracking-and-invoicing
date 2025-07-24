@@ -29,3 +29,14 @@ export async function tryCatch<T, E = Error>(
     return { data: null, error: error as E }
   }
 }
+
+export function getFirstTwoCharacter(name: string) {
+  if (!name) return ""
+  const splitFullName = name.toUpperCase().split(" ")
+  if (splitFullName.length > 1) {
+    return splitFullName[0].charAt(0) + splitFullName[1].charAt(0)
+  } else {
+    const splitFirstName = splitFullName[0].split("")
+    return splitFirstName.splice(0, 2).join("")
+  }
+}
